@@ -1,605 +1,378 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>مين الجاسوس؟</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#161b22">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0d1117;
-      --card-bg: #161b22;
-      --border: #30363d;
-      --accent: #ff4757;
-      --neon: #2ed573;
-      --text: #f0f6fc;
-      --muted: #8b949e;
-      --gold: #ffa502;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Cairo', sans-serif;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 16px;
-      overflow-x: hidden;
-    }
-    .container {
-      width: 100%;
-      max-width: 480px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    header {
-      text-align: center;
-      padding: 12px 0;
-    }
-    header h1 {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--accent);
-      text-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
-    }
-    header p {
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-    .badge {
-      display: inline-block;
-      background: rgba(46, 213, 115, 0.15);
-      color: var(--neon);
-      padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      margin-top: 4px;
-      border: 1px solid var(--neon);
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-    .btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 20px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      transition: all 0.2s ease;
-    }
-    .btn:active {
-      transform: scale(0.97);
-    }
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-    .btn-gold {
-      background: var(--gold);
-      color: #000;
-    }
-    .player-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 12px 0;
-    }
-    .player-tag {
-      background: rgba(255,255,255,0.06);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid var(--border);
-    }
-    .player-tag span {
-      cursor: pointer;
-      color: var(--accent);
-      font-weight: bold;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      background: #0d1117;
-      border: 1px solid var(--border);
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
-    }
-    input[type="text"]:focus {
-      border-color: var(--accent);
-    }
-    .screen {
-      display: none;
-      width: 100%;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .screen.active {
-      display: flex;
-    }
-    .reveal-box {
-      border: 2px dashed var(--accent);
-      border-radius: 16px;
-      padding: 40px 20px;
-      text-align: center;
-      cursor: pointer;
-      background: rgba(255, 71, 87, 0.05);
-      transition: background 0.3s;
-    }
-    .reveal-box.revealed {
-      border-style: solid;
-      background: rgba(46, 213, 115, 0.08);
-      border-color: var(--neon);
-    }
-    .timer-circle {
-      font-size: 3.5rem;
-      font-weight: 900;
-      color: var(--gold);
-      text-align: center;
-      margin: 10px 0;
-    }
-    .vote-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 10px;
-      margin-bottom: 8px;
-      border: 1px solid var(--border);
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0c0d11">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>مين الجاسوس؟</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
+<style>
+/* Optional: drop Cairo.woff2 into /fonts for guaranteed offline typography */
+@font-face{font-family:CairoLocal;src:url(fonts/Cairo.woff2) format("woff2");font-weight:200 1000;font-display:swap}
+:root{
+  --bg:#0c0d11;--surface:#15171d;--line:#262932;--text:#eceae4;--mute:#8b8e99;
+  --accent:#e8b84a;--danger:#e5534b;--ok:#4fbf8a;--ease:cubic-bezier(.2,.8,.2,1);
+  --font:CairoLocal,Cairo,system-ui,"Segoe UI",Tahoma,sans-serif;
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);
+  -webkit-user-select:none;user-select:none;overscroll-behavior:none}
+body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+#app{max-width:480px;height:100%;margin:0 auto;position:relative}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;gap:20px;padding:28px 24px 24px;overflow-y:auto}
+.screen[hidden]{display:none}
+.screen.in{animation:in .32s var(--ease)}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.grow{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.center{text-align:center;align-items:center}
+h1{font-size:clamp(40px,13vw,60px);font-weight:800;line-height:1.15;letter-spacing:-.5px}
+h2{font-size:26px;font-weight:800;line-height:1.3}
+.muted{color:var(--mute);line-height:1.8}
+.foot{text-align:center;font-size:13px;color:var(--mute)}
+.big{font-size:clamp(34px,11vw,48px);font-weight:800;line-height:1.2}
+
+.btn{font:inherit;font-weight:800;font-size:18px;height:58px;border:0;border-radius:18px;background:var(--accent);
+  color:#1a1405;cursor:pointer;transition:transform .15s var(--ease),opacity .2s,background .2s}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.28;pointer-events:none}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.sm{height:40px;font-size:15px;padding:0 16px;font-weight:600;align-self:flex-start}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.stepper{display:flex;align-items:center;gap:18px}
+.stepper button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--surface);
+  color:var(--text);font:inherit;font-size:22px;cursor:pointer;transition:transform .15s}
+.stepper button:active{transform:scale(.9)}
+.stepper b{font-size:30px;min-width:32px;text-align:center}
+.segs{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px}
+.segs button{flex:1;height:40px;border:0;border-radius:10px;background:transparent;color:var(--mute);
+  font:inherit;font-weight:600;cursor:pointer;transition:background .25s var(--ease),color .25s}
+.segs button[aria-pressed=true]{background:var(--line);color:var(--text)}
+#names{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input{font:inherit;width:100%;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);
+  background:var(--surface);color:var(--text);-webkit-user-select:text;user-select:text;transition:border-color .2s}
+input:focus{outline:0;border-color:var(--accent)}
+label{font-weight:600;color:var(--mute);font-size:14px}
+
+/* hold-to-reveal */
+.pad{width:min(80vw,320px);aspect-ratio:1;margin:auto;border-radius:50%;border:1.5px solid var(--line);
+  background:var(--surface);display:grid;place-items:center;padding:34px;text-align:center;touch-action:none;
+  cursor:pointer;transition:border-color .3s var(--ease),box-shadow .3s var(--ease),background .3s}
+.pad>*{grid-area:1/1;transition:opacity .25s,transform .35s var(--ease)}
+.pad .q{font-size:21px;font-weight:600;line-height:1.7;opacity:0;transform:scale(.92)}
+.pad .lock{color:var(--mute);font-weight:600;line-height:1.8}
+.pad.open{border-color:var(--accent);background:#1b1a14;box-shadow:0 0 0 10px rgba(232,184,74,.07)}
+.pad.open .q{opacity:1;transform:none}
+.pad.open .lock{opacity:0;transform:scale(1.08)}
+
+/* timer */
+.clock{position:relative;width:220px;height:220px;margin:0 auto}
+.clock svg{width:100%;height:100%;transform:rotate(-90deg) scaleY(-1)}
+.clock circle{fill:none;stroke-width:6}
+.clock .bg{stroke:var(--line)}
+.clock .fg{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .3s linear}
+.clock span{position:absolute;inset:0;display:grid;place-items:center;font-size:48px;font-weight:800;font-variant-numeric:tabular-nums;direction:ltr}
+.clock.end .fg{stroke:var(--danger)}.clock.end span{color:var(--danger)}
+
+/* vote + result */
+#picks{display:grid;gap:10px}
+.pick{font:inherit;font-weight:600;font-size:18px;height:56px;text-align:start;padding:0 18px;border-radius:16px;
+  border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer;
+  transition:border-color .2s,background .25s,transform .15s}
+.pick:active{transform:scale(.98)}
+.pick[aria-pressed=true]{border-color:var(--accent);background:#1b1a14}
+.verdict.win{color:var(--ok)}.verdict.lose{color:var(--danger)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.card small{color:var(--mute);font-weight:600}
+.card p{margin-top:6px;font-weight:600;line-height:1.7}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
+<main id="app">
 
-<div class="container">
-  <header>
-    <h1>مين الجاسوس؟ 🕵️‍♂️</h1>
-    <p>لعبة الشك والأسئلة المصرية</p>
-    <div class="badge" id="qCountBadge">بنك الأسئلة: جاري التحميل...</div>
-  </header>
-
-  <!-- Screen 1: Setup -->
-  <div id="screenSetup" class="screen active">
-    <div class="card">
-      <h3 style="margin-bottom: 12px;">إعداد اللعبة (Pass & Play)</h3>
-      <div style="display:flex; gap:8px;">
-        <input type="text" id="playerNameInput" placeholder="اكتب اسم اللاعب...">
-        <button class="btn" style="width: 80px;" onclick="addPlayer()">إضافة</button>
-      </div>
-      <div class="player-list" id="playersContainer"></div>
-      <p id="playerCountLabel" style="font-size: 0.8rem; color: var(--muted);">أقل عدد للعب: 3 لاعبين</p>
-    </div>
-
-    <div class="card">
-      <h3 style="margin-bottom: 10px;">إعدادات الجولة</h3>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <span>مدة النقاش بالتليفون:</span>
-        <select id="timerSelect" style="background:#0d1117; color:#fff; border:1px solid var(--border); padding:6px 12px; border-radius:8px;">
-          <option value="60">دقيقة واحدة</option>
-          <option value="90" selected>دقيقة ونصف</option>
-          <option value="120">دقيقتين</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="btn" onclick="startGame()">ابدأ الجولة 🚀</button>
+<section class="screen" data-s="home">
+  <div class="grow center">
+    <h1>مين<br>الجاسوس؟</h1>
+    <p class="muted">واحد فيكم مش عارف السؤال.<br>اسمعوا الإجابات وطلّعوه.</p>
   </div>
+  <button class="btn" data-do="setup">ابدأ لعبة</button>
+  <p class="foot" id="count"></p>
+</section>
 
-  <!-- Screen 2: Pass & Reveal -->
-  <div id="screenReveal" class="screen">
-    <div class="card" style="text-align: center;">
-      <h2 id="currentTurnName" style="color: var(--gold); margin-bottom: 8px;">دور: ...</h2>
-      <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 20px;">ادي الفون لصاحب الدور وتأكد إن محدش باصص في الشاشة</p>
-
-      <div class="reveal-box" id="revealBox" onmousedown="showSecret()" onmouseup="hideSecret()" ontouchstart="showSecret()" ontouchend="hideSecret()">
-        <div id="hiddenPrompt">
-          <p style="font-size: 1.8rem;">🔒</p>
-          <p style="font-weight: 700;">اضغط وفضل دايس عشان تشوف سؤالك</p>
-        </div>
-        <div id="shownPrompt" style="display: none;">
-          <span style="font-size: 0.75rem; color: var(--muted); display: block;" id="cardCategory">الفئة: ...</span>
-          <p id="questionText" style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-top: 8px;"></p>
-        </div>
-      </div>
-      <p style="font-size: 0.75rem; color: var(--muted); margin-top: 10px;">ارفع صباعك عشان تخفي السؤال فوراً</p>
-    </div>
-    <button class="btn btn-secondary" onclick="nextPlayerTurn()">اللاعب التالي ⬅️</button>
+<section class="screen" hidden data-s="setup">
+  <button class="btn ghost sm" data-do="home">رجوع</button>
+  <h2>إعداد اللعبة</h2>
+  <div class="row"><label>عدد اللاعبين</label>
+    <div class="stepper"><button id="plus" aria-label="زيادة">+</button><b id="n">4</b><button id="minus" aria-label="نقصان">−</button></div>
   </div>
-
-  <!-- Screen 3: Debate & Timer -->
-  <div id="screenDebate" class="screen">
-    <div class="card" style="text-align: center;">
-      <h3>وقت التحقيق والمناقشة 🎙️</h3>
-      <p style="color: var(--muted); font-size: 0.85rem; margin-top: 4px;">كل واحد يقول إجابته بالدور، وشكّوا في بعض براحتكم!</p>
-      <div class="timer-circle" id="timerDisplay">01:30</div>
-      <button class="btn btn-secondary" id="pauseTimerBtn" onclick="toggleTimer()">إيقاف مؤقت</button>
-    </div>
-    <button class="btn btn-gold" onclick="goToVoting()">انتقل للتصويت وكشف الجاسوس 🗳️</button>
+  <div id="names"></div>
+  <label>مدة النقاش</label>
+  <div class="segs" id="segs">
+    <button data-m="3">٣ دقايق</button><button data-m="5">٥ دقايق</button><button data-m="8">٨ دقايق</button><button data-m="12">١٢ دقيقة</button>
   </div>
+  <div style="flex:1"></div>
+  <button class="btn" data-do="start">يلا نبدأ</button>
+</section>
 
-  <!-- Screen 4: Voting & Reveal -->
-  <div id="screenVoting" class="screen">
-    <div class="card">
-      <h3 style="margin-bottom: 12px;">صوّتوا: مين الجاسوس؟</h3>
-      <div id="votingList"></div>
-    </div>
-    <button class="btn" onclick="revealImposter()">اكشف هوية الجاسوس والأسئلة 🔥</button>
+<section class="screen" hidden data-s="pass">
+  <div class="grow center">
+    <p class="muted">سلّم الموبايل لـ</p>
+    <div class="big" id="who"></div>
+    <p class="muted">وباقي اللاعبين يبعدوا بعيونهم.</p>
   </div>
+  <button class="btn" data-do="reveal">أنا جاهز</button>
+</section>
 
-  <!-- Screen 5: Final Result -->
-  <div id="screenResult" class="screen">
-    <div class="card" style="text-align: center;">
-      <h2 style="margin-bottom: 10px;">نتيجة الجولة 🕵️‍♂️</h2>
-      <p style="color: var(--muted);">الجاسوس في الجولة دي كان:</p>
-      <h1 id="imposterNameResult" style="color: var(--accent); margin: 12px 0;">...</h1>
-      
-      <div style="background: rgba(255,255,255,0.04); padding: 12px; border-radius: 10px; text-align: right; margin-top: 12px;">
-        <p style="font-size: 0.85rem; color: var(--neon); font-weight: 700;">سؤال الأغلبية:</p>
-        <p id="groupQuestionResult" style="font-size: 0.95rem; margin-bottom: 8px;"></p>
-        <p style="font-size: 0.85rem; color: var(--accent); font-weight: 700;">سؤال الجاسوس:</p>
-        <p id="imposterQuestionResult" style="font-size: 0.95rem;"></p>
-      </div>
-    </div>
-    <button class="btn" onclick="resetRound()">جولة جديدة 🔄</button>
+<section class="screen" hidden data-s="reveal">
+  <p class="muted center" style="text-align:center">اضغط واستمر عشان تشوف سؤالك</p>
+  <div class="pad" id="pad" role="button" tabindex="0" aria-label="اضغط مطولاً لإظهار السؤال">
+    <div class="lock">اضغط<br>واستمر</div><div class="q" id="q"></div>
   </div>
-</div>
+  <button class="btn" id="next" data-do="next" disabled>خلصت، سلّم الموبايل</button>
+</section>
+
+<section class="screen" hidden data-s="discuss">
+  <div class="grow center">
+    <p class="muted">يبدأ بالسؤال</p>
+    <div class="big" id="starter"></div>
+    <p class="muted">كل واحد يجاوب بشكل عام من غير ما يفضح سؤاله.</p>
+    <div class="clock" id="clock">
+      <svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="ring" cx="100" cy="100" r="90"/></svg>
+      <span id="time">0:00</span>
+    </div>
+  </div>
+  <button class="btn" data-do="vote">نصوّت دلوقتي</button>
+</section>
+
+<section class="screen" hidden data-s="vote">
+  <h2>مين الجاسوس في رأيكم؟</h2>
+  <p class="muted">اتفقوا على واحد واختاروه.</p>
+  <div id="picks"></div>
+  <div style="flex:1"></div>
+  <button class="btn" id="accuse" data-do="result" disabled>اكشف الجاسوس</button>
+</section>
+
+<section class="screen" hidden data-s="result">
+  <div class="grow center">
+    <h1 class="verdict" id="verdict"></h1>
+    <p class="muted">الجاسوس كان</p>
+    <div class="big" id="spy"></div>
+  </div>
+  <div class="card"><small>سؤال المجموعة</small><p id="qg"></p></div>
+  <div class="card"><small>سؤال الجاسوس</small><p id="qi"></p></div>
+  <button class="btn" data-do="start">جولة جديدة</button>
+  <button class="btn ghost" data-do="home">القائمة الرئيسية</button>
+</section>
+
+</main>
 
 <script>
-const seedCategories = [
-  {
-    name: "أكل وشوارع",
-    groups: [
-      "أكلة مصرية أصيلة لازم تاكلها بـ عيش بلدي سخن؟",
-      "حاجة لازم تحطها فوق طبق الكشري من العلب عشان يظبط؟",
-      "طلب بتطلبه وأنت واقف على عربية الفول الصبح بدري؟",
-      "فاكهة صيفية مشهورة بتاكلها وأنت سهران مع العيلة؟",
-      "أكتر ساندوتش رخيص ومنقذ بتجيبه وأنت مفلس في الشارع؟",
-      "نوع بهارات أو تابل ريحته قوية وموجود في كل مطبخ مصري؟",
-      "حاجة مشهورة بتشتريها سخنة من عند الحلواني في الشتا؟",
-      "مشروب دافئ بيشربوه الناس في البرد عشان يدفيهم؟"
-    ],
-    imposters: [
-      "حاجة بتاكلها بـ شوكة وسكينة أو معلقة في مطعم؟",
-      "حاجة أساسية بتطلبها مع ساندوتش شاورما أو برجر؟",
-      "حاجة أساسية بتطلبها لما تقعد على القهوة البلدي؟",
-      "حاجة حلوة بتشتريها ساقعة أو مثلجة في عز الحر؟",
-      "وجبة سريعة بتطلبها لما تكون عايز تدلع نفسك ومعاك فلوس؟",
-      "حاجة خضراء لازم تتقطع وتتحط في طبق السلطة البلدي؟",
-      "حاجة بتطلبها من مطعم سمك وأنت في إسكندرية أو السويس؟",
-      "عصير طبيعي مشهور بتشربه مثلج من عند القصبجي؟"
-    ]
-  },
-  {
-    name: "مواصلات وشوارع",
-    groups: [
-      "حاجة بتشوفها متعلقة أو مكتوبة على ضهر التوك توك؟",
-      "وسيلة مواصلات بتركبها لما تكون مستعجل أوي والشارع واقف؟",
-      "أكتر محطة مترو زحمة وخنقة في أوقات الذروة وخروج الموظفين؟",
-      "حركة أو إشارة بالإيد بيعملها الزبون للميكروباص في الشارع؟",
-      "حاجة دايماً بتلاقيها جوة شنطة العربية في مصر للطوارئ؟",
-      "جملة شهيرة السواق بيقولها لما الميكروباص يقرّب يحمّل؟"
-    ],
-    imposters: [
-      "جملة مشهورة مكتوبة على لافتة إرشادية جوة محطة المترو؟",
-      "وسيلة مواصلات عامة بتركبها رخيصة وبتشيل ناس كتير جداً؟",
-      "ميدان مشهور أو منطقة في وسط البلد الكل عارفها؟",
-      "حركة بتعملها لواحد صاحبك لما تشوفه من بعيد في الشارع؟",
-      "أداة لازم تلاقيها جوة شنطة العدة في البيت؟",
-      "حاجة بتقولها للكمسري في القطر أو الأتوبيس وأنت بتقطع التذكرة؟"
-    ]
-  },
-  {
-    name: "سينما وتلفزيون",
-    groups: [
-      "شخصية شريرة أسطورية في السينما أو الدراما المصرية القديمة؟",
-      "فيلم مصري قديم بالأبيض والأسود الناس كلها حافظاه؟",
-      "ممثل مصري مشهور بأفلام الأكشن والمطاردات في السينما؟",
-      "برنامج أو فقرة تلفزيونية بنستناها كل سنة في رمضان؟",
-      "إيفيه سينمائي مشهور بنقوله لما نكون في موقف محرج؟"
-    ],
-    imposters: [
-      "شخصية كوميدية شهيرة الكل بيقلد حركاتها وطريقتها؟",
-      "فيلم مصري كوميدي نزل في الألفينات والشباب حافظين كلامه؟",
-      "ممثل مشهور بالأدوار الاجتماعية والدراما العميقة؟",
-      "مسلسل درامي رمضاني أثر في الناس جداً وعاش سنين طويلة؟",
-      "حكمة أو مثل شعبي قديم أهالينا دايماً بيفكرونا بيه؟"
-    ]
-  },
-  {
-    name: "قهوة وقعدة صحاب",
-    groups: [
-      "طلب كلاسيكي بتطلبه لما تقعد على القهوة البلدي مع صحابك؟",
-      "لعبة بتلعبوها على القهوة دايماً وبتعمل خناقات وصوت عالي؟",
-      "جملة مشهورة بنقولها للقهوجي وأنت بتنادي عليه وسط الدوشة؟",
-      "حاجة بتطلبها من السوبرماركت وأنت نازل تسهر بليل في الشارع؟"
-    ],
-    imposters: [
-      "مشروب بتطلبه لما تقعد في كافيه مودرن في مول كبير؟",
-      "لعبة فيديو بتلعبوها مع بعض على البلايستيشن في قعدة سهر؟",
-      "حاجة بتقولها للجرسون في مطعم شيك وأنت بتطلب الحساب؟",
-      "حاجة بتشتريها من الصيدلية لما يجيلك صداع أو دور برد مفاجئ؟"
-    ]
-  },
-  {
-    name: "يوميات وتفاصيل بيت",
-    groups: [
-      "صوت مشهور بتسمعه دايماً وأنت نايم الصبح بدري من الشارع؟",
-      "تصرف بنعمله لما الريموت يبدأ يعلق أو حجارته تضعف؟",
-      "شغلانة بيت أهل البيت دايماً بيأجلوها ويكسلوا يعملوها؟",
-      "جهاز كهربائي لو عطل في الصيف البيت بيتحول لفرن وجحيم؟",
-      "حاجة بتسيبها على ترابيزة في الصالة وبتضيع في ظروف غامضة؟"
-    ],
-    imposters: [
-      "صوت جهاز في البيت بيفضل يرن ويصحيك من أحلى نومة بالعافية؟",
-      "تصرف بنعمله لما الراوتر يعلق والنت يقطع فجأة في نص الماتش؟",
-      "شغلانة روتينية سريعة بتعملها قبل ما تقفل باب الشقة وتنزل؟",
-      "جهاز كهربائي في المطبخ بنستخدمه يومياً لتسخين أو تجهيز الأكل؟",
-      "حاجة بتنزل بيها الشارع وتكتشف بعد مسافة إنك نسيتها في البيت؟"
-    ]
-  }
-];
-
-const contexts = [
-  "في منطقة شعبية زحمة",
-  "يوم الجمعة بعد الصلاة مباشرة",
-  "في عز الصيف والحر الخانق",
-  "في ليالي الشتا والبرد والتكتكة",
-  "وأنت راجع متأخر ومفرهد من الشغل أو الكلية",
-  "وأنت خارج مع صحابك ومفلسين تماماً",
-  "في أول أسبوع من شهر رمضان الكريم",
-  "وأنت بتصيف في إسكندرية أو مطروح",
-  "في وقفة العيد والدنيا هايصة في الشوارع",
-  "في مواصلات رمسيس أو العتبة وقت الذروة"
-];
-
-function generateExtensiveBank() {
-  let questions = [];
-  let id = 1;
-  seedCategories.forEach(cat => {
-    for (let i = 0; i < cat.groups.length; i++) {
-      for (let j = 0; j < cat.imposters.length; j++) {
-        questions.push({
-          id: id++,
-          category: cat.name,
-          groupQ: cat.groups[i],
-          imposterQ: cat.imposters[j]
-        });
-      }
-    }
-  });
-  seedCategories.forEach(cat => {
-    cat.groups.forEach((gQ, idx) => {
-      const impQ = cat.imposters[idx % cat.imposters.length];
-      contexts.forEach(ctx => {
-        questions.push({
-          id: id++,
-          category: `${cat.name} (${ctx})`,
-          groupQ: `${gQ.replace("؟", "")} (${ctx})؟`,
-          imposterQ: `${impQ.replace("؟", "")} (${ctx})؟`
-        });
-      });
-    });
-  });
-  return questions;
-}
-
-const ALL_QUESTIONS = generateExtensiveBank();
-
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function playBeep(freq = 440, type = 'sine', duration = 0.1) {
-  try {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = type;
-    osc.frequency.value = freq;
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start();
-    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-    osc.stop(audioCtx.currentTime + duration);
-  } catch(e){}
-}
-
-let players = ["أحمد", "محمود", "عمر", "سارة"];
-let currentRound = {
-  imposterIndex: -1,
-  question: null,
-  currentTurn: 0,
-  timerInterval: null,
-  timeLeft: 90,
-  isPaused: false
+/* ============ Utils ============ */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const txt = (id, t) => { $('#' + id).textContent = t; };
+const rnd = n => Math.floor(Math.random() * n);
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const Store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem('gsp:' + k)) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('gsp:' + k, JSON.stringify(v)); } catch {} }
 };
 
-function initApp() {
-  document.getElementById('qCountBadge').innerText = `بنك الأسئلة المتاح: ${ALL_QUESTIONS.length} سؤال`;
-  renderPlayers();
-}
-
-function renderPlayers() {
-  const container = document.getElementById('playersContainer');
-  container.innerHTML = '';
-  players.forEach((p, idx) => {
-    const tag = document.createElement('div');
-    tag.className = 'player-tag';
-    tag.innerHTML = `${p} <span onclick="removePlayer(${idx})">&times;</span>`;
-    container.appendChild(tag);
-  });
-  document.getElementById('playerCountLabel').innerText = `عدد اللاعبين: ${players.length} (الأدنى: 3)`;
-}
-
-function addPlayer() {
-  const input = document.getElementById('playerNameInput');
-  const name = input.value.trim();
-  if (name && !players.includes(name)) {
-    players.push(name);
-    input.value = '';
-    renderPlayers();
+/* ============ Content engine ============
+   pair index = seed × modifier. Add seeds with Content.add([...]) — every new
+   seed instantly multiplies across all modifiers.
+   Seed format: "group phrase|imposter phrase"  (rendered as: إيه <phrase> <modifier>؟) */
+const Content = {
+  seeds: [],
+  mods: ['', 'في رمضان', 'في الصيف', 'في الشتا', 'لما تبقى مفلس', 'لما تكون مع صحابك', 'يوم الجمعة',
+    'في الأجازة', 'وانت مسافر', 'لما تكون مضايق', 'في العيد', 'أيام الامتحانات', 'بعد نص الليل',
+    'وانت في الشغل', 'أيام الجامعة'],
+  add(list) { list.forEach(s => this.seeds.push(s.split('|'))); },
+  get size() { return this.seeds.length * this.mods.length; },
+  pair(i) {
+    const m = this.mods.length, [a, b] = this.seeds[Math.floor(i / m)], mod = this.mods[i % m];
+    const f = t => `إيه ${t}${mod ? ' ' + mod : ''}؟`;
+    return Math.random() < .5 ? { group: f(a), imposter: f(b) } : { group: f(b), imposter: f(a) };
+  },
+  next() { // shuffled deck persisted across sessions → no repeats until exhausted
+    let d = Store.get('deck', null);
+    if (!d || d.sig !== this.size || !d.q.length) d = { sig: this.size, q: shuffle([...Array(this.size).keys()]) };
+    const i = d.q.pop(); Store.set('deck', d);
+    return this.pair(i);
   }
-}
+};
 
-function removePlayer(idx) {
-  if (players.length > 3) {
-    players.splice(idx, 1);
-    renderPlayers();
-  } else {
-    alert("الحد الأدنى للعب 3 لاعبين عشان المتعة والشبهات!");
+Content.add([
+  // أكل
+  'أكلة بتاكلها في الفطار|أكلة بتاكلها في العشا', 'سندوتش بتشتريه من الشارع|سندوتش بتعمله في البيت',
+  'أكلة أمك بتعملها أحسن من أي مطعم|أكلة ستك بتعملها أحسن من أي مطعم', 'مشروب بتطلبه على القهوة|مشروب بتشربه أول ما تصحى',
+  'حلو بتاخده وانت رايح عزومة|حلو بتشتريه لنفسك', 'أكلة بتطلبها ديليفري|أكلة بتاكلها من المطعم',
+  'أكلة مبتزهقش منها|أكلة زهقت منها', 'حاجة بتاكلها مع الفول|حاجة بتاكلها مع الكشري',
+  'أكلة بتفكرك بالغدا يوم الجمعة|أكلة بتفكرك بالغدا عند تيتة', 'نكهة شيبسي بتختارها|نكهة عصير بتختارها',
+  'حاجة بتحطها في السندوتش|حاجة بتحطها على الكشري', 'أكلة بتتخانق عليها مع اخواتك|أكلة بتخبيها من اخواتك',
+  // شوارع ومواصلات
+  'مكان بتستنى فيه الميكروباص|مكان بتستنى فيه المترو', 'شارع بتتعصب فيه من الزحمة|شارع بتحب تتمشى فيه',
+  'حاجة بتضايقك في المترو|حاجة بتضايقك في الميكروباص', 'حاجة بتسمعها من سواق الميكروباص|حاجة بتسمعها من سواق التاكسي',
+  'موقف بتتحرج منه في المواصلات|موقف بتضحك عليه في المواصلات', 'مكان بتروحه بالليل لما تفضى|مكان بتروحه بالنهار لما تفضى',
+  'كوبري بتحب تعدي عليه|كوبري بتكره تعدي عليه', 'حاجة بتعملها وانت في الزحمة|حاجة بتعملها وانت مستني حد',
+  'مكان بيتأخر فيه صحابك|مكان بتتأخر فيه انت', 'حاجة بتشوفها في الطريق كل يوم|حاجة بتشوفها في الطريق مرة في السنة',
+  // نوستالجيا
+  'لعبة كنت بتلعبها في الشارع|لعبة كنت بتلعبها في المدرسة', 'كارتون كنت مستنيه بعد المدرسة|كارتون كنت بتشوفه في الأجازة',
+  'حاجة كنت بتشتريها من كشك المدرسة|حاجة كنت بتشتريها من بقال الحتة', 'أغنية بتفكرك بأيام زمان|أغنية بتفكرك بأول حب',
+  'حاجة كنت بتخاف منها وانت صغير|حاجة كنت بتحبها وانت صغير', 'مدرس فاكره لحد دلوقتي|زميل فاكره لحد دلوقتي',
+  'حاجة كانت غالية وبقت رخيصة|حاجة كانت رخيصة وبقت غالية', 'لعبة بلايستيشن كنت بتلعبها|لعبة موبايل بتلعبها دلوقتي',
+  'حاجة كانت بتحصل في الأعياد زمان|حاجة كانت بتحصل في رمضان زمان', 'هدية كنت بتحلم بيها|هدية أخدتها وفرحت بيها',
+  'شريط كاسيت كنت بتسمعه|أغنية كنت بتسمعها على الراديو', 'حاجة كنت بتعملها عشان تهرب من المذاكرة|حاجة كنت بتعملها عشان تهرب من الحصة',
+  // سينما ومسلسلات
+  'فيلم مصري بتشوفه كل ما يتعرض|مسلسل مصري بتشوفه كل ما يتعرض', 'ممثل بتحب أفلامه|ممثل بتحب قفشاته',
+  'إفيه بتقوله كتير|إفيه بتسمعه كتير', 'فيلم كوميدي مبتزهقش منه|فيلم أكشن بتحبه',
+  'مسلسل رمضاني فاكره لحد دلوقتي|إعلان رمضاني فاكره لحد دلوقتي', 'مشهد بيضحكك لحد دلوقتي|مشهد بيعيطك لحد دلوقتي',
+  'فيلم بتتفرج عليه مع العيلة|فيلم بتتفرج عليه مع صحابك', 'أغنية شعبية بترقص عليها|أغنية رومانسية بتسمعها',
+  'شخصية في فيلم بتشبهك|شخصية في مسلسل بتشبه حد تعرفه', 'فيلم قديم بتحبه|فيلم أبيض وأسود بتحبه',
+  // حياة يومية وفلوس
+  'حاجة بتصرف عليها فلوس كتير|حاجة بتصرف عليها ومش بتندم', 'حاجة بتتحاسب عليها بالعافية|حاجة بتشتريها بالقسط',
+  'حاجة بتعملها أول ما توصل البيت|حاجة بتعملها قبل ما تنام', 'حاجة بتضايقك في النت|حاجة بتضايقك في الكهربا',
+  'مكان بتشتري منه هدومك|مكان بتشتري منه موبايلك', 'حاجة بتنساها دايماً|حاجة بتفتكرها في آخر لحظة',
+  'عادة عندك بتضايق اللي حواليك|عادة عند حد قريب منك بتضايقك', 'حاجة بتعملها لما تبقى زهقان|حاجة بتعملها لما تبقى متوتر',
+  'حاجة بتشتريها من المول|حاجة بتشتريها من السوق', 'تطبيق بتفتحه أكتر حاجة|تطبيق بتمسحه كل شوية',
+  // ناس وعلاقات
+  'حاجة أمك بتقولها كل يوم|حاجة أبوك بيقولها كل يوم', 'جملة بتقولها لما تتأخر|جملة بتقولها لما تعتذر',
+  'نصيحة بتسمعها من أهلك|نصيحة بتسمعها من صحابك', 'صفة بتحبها في الجيران|صفة بتضايقك في الجيران',
+  'حاجة بتعملها عشان تصالح حد زعلان|حاجة بتعملها عشان تعتذر لحد', 'لقب بتنادي بيه صاحبك|لقب بينادوك بيه صحابك',
+  'حاجة بتعمل بيها مقلب في صاحبك|حاجة بتعمل بيها مقلب في اخوك', 'حاجة بتتخانق عليها في البيت|حاجة بتتخانق عليها في الشغل',
+  'حاجة بتقدمها للضيوف|حاجة بتقدمها للضيوف قبل الأكل',
+  // مصايف وخروجات
+  'مكان بتروحه المصيف|مكان بتروحه الساحل', 'حاجة لازم تاخدها في الرحلة|حاجة بتنساها في البيت',
+  'مكان بتخرج فيه مع صحابك|مكان بتخرج فيه مع العيلة', 'حاجة بتشتريها من الكورنيش|حاجة بتشتريها من الملاهي',
+  'أغنية بتشغلها في العربية|أغنية بتشغلها في الرحلة', 'حاجة بتعملها على البحر|حاجة بتعملها على النيل',
+  'كافيه بتحب تقعد فيه|كافيه بتكره تقعد فيه', 'حاجة بتاكلها في السينما|حاجة بتشربها في السينما',
+  'مكان بتسافر له بالقطر|مكان بتسافر له بالأتوبيس'
+]);
+
+/* ============ State ============ */
+const G = { n: 4, minutes: 5, names: [], players: [], imposter: 0, starter: 0, turn: 0, pair: null, suspect: null, tick: 0, wake: null };
+
+/* ============ Screens ============ */
+const UI = {
+  show(name) {
+    $$('.screen').forEach(s => s.hidden = s.dataset.s !== name);
+    const el = $(`[data-s=${name}]`);
+    el.classList.remove('in'); void el.offsetWidth; el.classList.add('in'); el.scrollTop = 0;
   }
-}
+};
 
-function setScreen(screenId) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(screenId).classList.add('active');
-}
+/* ============ Setup ============ */
+const Setup = {
+  init() {
+    G.n = Store.get('n', 4); G.minutes = Store.get('min', 5); G.names = Store.get('names', []);
+    $('#minus').onclick = () => this.set(G.n - 1);
+    $('#plus').onclick = () => this.set(G.n + 1);
+    $('#segs').onclick = e => { const b = e.target.closest('button'); if (b) { G.minutes = +b.dataset.m; this.draw(); } };
+    this.draw();
+  },
+  set(n) { this.keep(); G.n = Math.min(12, Math.max(3, n)); this.draw(); },
+  keep() { const v = $$('#names input').map(i => i.value.trim()); if (v.length) G.names = v; },
+  draw() {
+    txt('n', G.n);
+    $('#names').innerHTML = Array.from({ length: G.n }, (_, i) =>
+      `<input maxlength="14" placeholder="لاعب ${i + 1}" value="${esc(G.names[i] || '')}" aria-label="اسم اللاعب ${i + 1}">`).join('');
+    $$('#segs button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.m === G.minutes));
+  },
+  players() { this.keep(); return Array.from({ length: G.n }, (_, i) => G.names[i] || `لاعب ${i + 1}`); }
+};
 
-function startGame() {
-  if (players.length < 3) {
-    alert("ضيف 3 لاعبين على الأقل للبدء!");
-    return;
+/* ============ Hold-to-reveal ============ */
+const Reveal = {
+  init() {
+    const pad = $('#pad');
+    const on = e => { e.preventDefault(); if (pad.classList.contains('open')) return;
+      txt('q', G.turn === G.imposter ? G.pair.imposter : G.pair.group);
+      pad.classList.add('open'); $('#next').disabled = false; };
+    const off = () => { pad.classList.remove('open'); setTimeout(() => { if (!pad.classList.contains('open')) txt('q', ''); }, 260); };
+    pad.addEventListener('pointerdown', on);
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => pad.addEventListener(t, off));
+    pad.addEventListener('contextmenu', e => e.preventDefault());
+    pad.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') on(e); });
+    pad.addEventListener('keyup', off);
+    document.addEventListener('visibilitychange', off);
   }
-  if (audioCtx.state === 'suspended') audioCtx.resume();
+};
 
-  const randomQ = ALL_QUESTIONS[Math.floor(Math.random() * ALL_QUESTIONS.length)];
-  const imposterIdx = Math.floor(Math.random() * players.length);
-
-  currentRound = {
-    imposterIndex: imposterIdx,
-    question: randomQ,
-    currentTurn: 0,
-    timerInterval: null,
-    timeLeft: parseInt(document.getElementById('timerSelect').value, 10),
-    isPaused: false
-  };
-
-  showTurnScreen();
-  setScreen('screenReveal');
-}
-
-function showTurnScreen() {
-  document.getElementById('currentTurnName').innerText = `دور: ${players[currentRound.currentTurn]}`;
-  document.getElementById('hiddenPrompt').style.display = 'block';
-  document.getElementById('shownPrompt').style.display = 'none';
-  document.getElementById('revealBox').classList.remove('revealed');
-
-  const isImposter = (currentRound.currentTurn === currentRound.imposterIndex);
-  document.getElementById('cardCategory').innerText = `الفئة: ${currentRound.question.category}`;
-  document.getElementById('questionText').innerText = isImposter 
-    ? currentRound.question.imposterQ 
-    : currentRound.question.groupQ;
-}
-
-function showSecret() {
-  playBeep(600, 'triangle', 0.08);
-  document.getElementById('hiddenPrompt').style.display = 'none';
-  document.getElementById('shownPrompt').style.display = 'block';
-  document.getElementById('revealBox').classList.add('revealed');
-}
-
-function hideSecret() {
-  document.getElementById('hiddenPrompt').style.display = 'block';
-  document.getElementById('shownPrompt').style.display = 'none';
-  document.getElementById('revealBox').classList.remove('revealed');
-}
-
-function nextPlayerTurn() {
-  playBeep(400, 'sine', 0.05);
-  currentRound.currentTurn++;
-  if (currentRound.currentTurn < players.length) {
-    showTurnScreen();
-  } else {
-    startDebate();
+/* ============ Game flow ============ */
+const Game = {
+  start() {
+    G.players = Setup.players();
+    Store.set('n', G.n); Store.set('min', G.minutes); Store.set('names', G.names);
+    G.imposter = rnd(G.players.length); G.starter = rnd(G.players.length);
+    G.pair = Content.next(); G.turn = 0; G.suspect = null;
+    this.pass();
+  },
+  pass() { txt('who', G.players[G.turn]); UI.show('pass'); },
+  reveal() {
+    $('#next').disabled = true; txt('q', '');
+    txt('next', G.turn === G.players.length - 1 ? 'ابدأوا النقاش' : 'خلصت، سلّم الموبايل');
+    UI.show('reveal');
+  },
+  next() { ++G.turn < G.players.length ? this.pass() : this.discuss(); },
+  async discuss() {
+    const total = G.minutes * 60000, end = Date.now() + total, C = 2 * Math.PI * 90, ring = $('#ring');
+    ring.style.strokeDasharray = C; $('#clock').classList.remove('end');
+    txt('starter', G.players[G.starter]); UI.show('discuss');
+    clearInterval(G.tick);
+    const step = () => {
+      const left = Math.max(0, end - Date.now()), s = Math.ceil(left / 1000);
+      txt('time', `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`);
+      ring.style.strokeDashoffset = C * (1 - left / total);
+      if (!left) { clearInterval(G.tick); $('#clock').classList.add('end'); navigator.vibrate?.([200, 100, 200]); }
+    };
+    G.tick = setInterval(step, 250); step();
+    try { G.wake = await navigator.wakeLock?.request('screen'); } catch {}
+  },
+  vote() {
+    clearInterval(G.tick); G.wake?.release?.().catch(() => {}); G.suspect = null;
+    $('#accuse').disabled = true;
+    $('#picks').innerHTML = G.players.map((p, i) => `<button class="pick" data-i="${i}" aria-pressed="false">${esc(p)}</button>`).join('');
+    UI.show('vote');
+  },
+  result() {
+    const caught = G.suspect === G.imposter, v = $('#verdict');
+    v.textContent = caught ? 'كشفتوه!' : 'الجاسوس نجا';
+    v.className = 'verdict ' + (caught ? 'win' : 'lose');
+    txt('spy', G.players[G.imposter]); txt('qg', G.pair.group); txt('qi', G.pair.imposter);
+    UI.show('result');
   }
-}
+};
 
-function startDebate() {
-  setScreen('screenDebate');
-  updateTimerDisplay();
-  currentRound.timerInterval = setInterval(() => {
-    if (!currentRound.isPaused) {
-      currentRound.timeLeft--;
-      updateTimerDisplay();
-      if (currentRound.timeLeft <= 0) {
-        clearInterval(currentRound.timerInterval);
-        playBeep(800, 'square', 0.4);
-        goToVoting();
-      }
-    }
-  }, 1000);
-}
+/* ============ Wiring ============ */
+const actions = {
+  home: () => UI.show('home'), setup: () => UI.show('setup'),
+  start: () => Game.start(), reveal: () => Game.reveal(), next: () => Game.next(),
+  vote: () => Game.vote(), result: () => Game.result()
+};
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-do]'); if (b) return actions[b.dataset.do]?.();
+  const p = e.target.closest('.pick'); if (!p) return;
+  G.suspect = +p.dataset.i;
+  $$('.pick').forEach(x => x.setAttribute('aria-pressed', x === p));
+  $('#accuse').disabled = false;
+});
 
-function updateTimerDisplay() {
-  const m = Math.floor(currentRound.timeLeft / 60).toString().padStart(2, '0');
-  const s = (currentRound.timeLeft % 60).toString().padStart(2, '0');
-  document.getElementById('timerDisplay').innerText = `${m}:${s}`;
-}
+Setup.init(); Reveal.init();
+txt('count', `${Content.size.toLocaleString('ar-EG')} سؤال جاهز`);
 
-function toggleTimer() {
-  currentRound.isPaused = !currentRound.isPaused;
-  document.getElementById('pauseTimerBtn').innerText = currentRound.isPaused ? 'استئناف' : 'إيقاف مؤقت';
+/* ============ Offline ============ */
+if ('serviceWorker' in navigator) {
+  addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(console.warn));
 }
-
-function goToVoting() {
-  clearInterval(currentRound.timerInterval);
-  setScreen('screenVoting');
-  const list = document.getElementById('votingList');
-  list.innerHTML = '';
-  players.forEach(p => {
-    const item = document.createElement('div');
-    item.className = 'vote-item';
-    item.innerHTML = `<span>${p}</span> <button class="btn btn-secondary" style="width: auto; padding: 4px 12px;" onclick="selectCandidate(this)">شاكك فيه 🤨</button>`;
-    list.appendChild(item);
-  });
-}
-
-function selectCandidate(btn) {
-  btn.classList.toggle('btn-gold');
-  playBeep(500, 'triangle', 0.05);
-}
-
-function revealImposter() {
-  playBeep(250, 'sawtooth', 0.5);
-  setScreen('screenResult');
-  document.getElementById('imposterNameResult').innerText = players[currentRound.imposterIndex];
-  document.getElementById('groupQuestionResult').innerText = currentRound.question.groupQ;
-  document.getElementById('imposterQuestionResult').innerText = currentRound.question.imposterQ;
-}
-
-function resetRound() {
-  setScreen('screenSetup');
-}
-
-window.onload = initApp;
 </script>
 </body>
 </html>
