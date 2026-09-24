@@ -2,7 +2,7 @@
    Bump VERSION only when you change the precache list. Content edits to
    index.html propagate automatically (stale-while-revalidate: the fresh copy
    is fetched in the background and used on the next launch). */
-const VERSION = 'gassous-v2';
+const VERSION = 'gassous-v3';
 const SCOPE = self.registration.scope;                 // e.g. https://user.github.io/Gassous-app/
 const url = p => new URL(p, SCOPE).href;
 const INDEX = url('index.html');

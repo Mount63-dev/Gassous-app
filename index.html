@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#0c0d11">
+<meta name="theme-color" content="#14202b">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>مين الجاسوس؟</title>
@@ -11,87 +11,94 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap">
 <style>
 /* Optional: drop Cairo.woff2 into /fonts for guaranteed offline typography */
 @font-face{font-family:CairoLocal;src:url(fonts/Cairo.woff2) format("woff2");font-weight:200 1000;font-display:swap}
 :root{
-  --bg:#0c0d11;--surface:#15171d;--line:#262932;--text:#eceae4;--mute:#8b8e99;
-  --accent:#e8b84a;--danger:#e5534b;--ok:#4fbf8a;--ease:cubic-bezier(.2,.8,.2,1);
+  --bg:#14202b;--bg2:#1c2c3b;--line:#2f4457;--text:#f3ecdc;--mute:#9db0be;
+  --paper:#f5edda;--ink:#2b2219;--c:#eab949;--ease:cubic-bezier(.2,.8,.2,1);
   --font:CairoLocal,Cairo,system-ui,"Segoe UI",Tahoma,sans-serif;
 }
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);
-  -webkit-user-select:none;user-select:none;overscroll-behavior:none}
+html,body{height:100%;color:var(--text);font-family:var(--font);-webkit-user-select:none;user-select:none;overscroll-behavior:none;
+  background:radial-gradient(120% 70% at 85% -10%,#24405a 0,transparent 60%),radial-gradient(90% 60% at 0% 110%,#2a3a2c 0,transparent 55%),var(--bg)}
 body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 #app{max-width:480px;height:100%;margin:0 auto;position:relative}
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;gap:20px;padding:28px 24px 24px;overflow-y:auto}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;gap:18px;padding:26px 22px 24px;overflow-y:auto}
 .screen[hidden]{display:none}
-.screen.in{animation:in .32s var(--ease)}
-@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.screen.in{animation:in .3s var(--ease)}
+@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .grow{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px}
 .center{text-align:center;align-items:center}
-h1{font-size:clamp(40px,13vw,60px);font-weight:800;line-height:1.15;letter-spacing:-.5px}
-h2{font-size:26px;font-weight:800;line-height:1.3}
+h1{font-size:clamp(46px,15vw,72px);font-weight:900;line-height:1.1}
+h2{font-size:26px;font-weight:900}
 .muted{color:var(--mute);line-height:1.8}
+.big{font-size:clamp(34px,11vw,48px);font-weight:900;line-height:1.2}
 .foot{text-align:center;font-size:13px;color:var(--mute)}
-.big{font-size:clamp(34px,11vw,48px);font-weight:800;line-height:1.2}
+label.t{font-weight:800;font-size:15px;color:var(--mute)}
 
-.btn{font:inherit;font-weight:800;font-size:18px;height:58px;border:0;border-radius:18px;background:var(--accent);
-  color:#1a1405;cursor:pointer;transition:transform .15s var(--ease),opacity .2s,background .2s}
-.btn:active{transform:scale(.97)}
-.btn:disabled{opacity:.28;pointer-events:none}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-.btn.sm{height:40px;font-size:15px;padding:0 16px;font-weight:600;align-self:flex-start}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn{--d:color-mix(in srgb,var(--c) 60%,#000);font:inherit;font-weight:900;font-size:18px;height:58px;border:0;border-radius:16px;
+  background:var(--c);color:#1c1508;box-shadow:0 5px 0 var(--d);cursor:pointer;transition:transform .1s,box-shadow .1s,filter .2s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--d)}
+.btn:disabled{filter:grayscale(.9) brightness(.55);pointer-events:none}
+.btn.ghost{background:var(--bg2);color:var(--text);box-shadow:0 4px 0 #0c141b;border:1px solid var(--line)}
+.btn.ghost:active{box-shadow:0 1px 0 #0c141b}
+.btn.sm{height:40px;font-size:15px;padding:0 16px;align-self:flex-start;box-shadow:0 3px 0 #0c141b}
+:focus-visible{outline:2px solid var(--text);outline-offset:3px}
 
+.dots{display:flex;gap:8px;justify-content:center}
+.dots i{width:14px;height:14px;border-radius:50%;background:var(--k);box-shadow:0 2px 0 #0006}
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.stepper{display:flex;align-items:center;gap:18px}
-.stepper button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--surface);
-  color:var(--text);font:inherit;font-size:22px;cursor:pointer;transition:transform .15s}
-.stepper button:active{transform:scale(.9)}
-.stepper b{font-size:30px;min-width:32px;text-align:center}
-.segs{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px}
-.segs button{flex:1;height:40px;border:0;border-radius:10px;background:transparent;color:var(--mute);
-  font:inherit;font-weight:600;cursor:pointer;transition:background .25s var(--ease),color .25s}
-.segs button[aria-pressed=true]{background:var(--line);color:var(--text)}
+.stepper{display:flex;align-items:center;gap:16px}
+.stepper button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--text);
+  font:inherit;font-size:24px;cursor:pointer;box-shadow:0 3px 0 #0c141b;transition:transform .1s,box-shadow .1s}
+.stepper button:active{transform:translateY(3px);box-shadow:none}
+.stepper b{font-size:32px;min-width:34px;text-align:center}
 #names{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-input{font:inherit;width:100%;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);
-  background:var(--surface);color:var(--text);-webkit-user-select:text;user-select:text;transition:border-color .2s}
-input:focus{outline:0;border-color:var(--accent)}
-label{font-weight:600;color:var(--mute);font-size:14px}
+input{font:inherit;font-weight:600;width:100%;height:48px;padding:0 14px;border-radius:12px;border:1px solid var(--line);
+  border-inline-start:7px solid var(--k,var(--line));background:var(--bg2);color:var(--text);-webkit-user-select:text;user-select:text}
+input:focus{outline:0;border-color:var(--k,var(--text))}
+#chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-weight:700;font-size:15px;padding:9px 14px 9px 12px;border-radius:999px;border:2px solid var(--line);
+  background:transparent;color:var(--mute);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s var(--ease)}
+.chip::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--k)}
+.chip[aria-pressed=true]{background:color-mix(in srgb,var(--k) 22%,var(--bg));border-color:var(--k);color:var(--text)}
+.segs{display:flex;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:4px}
+.segs button{flex:1;height:40px;border:0;border-radius:10px;background:transparent;color:var(--mute);font:inherit;font-weight:700;cursor:pointer;transition:all .25s var(--ease)}
+.segs button[aria-pressed=true]{background:var(--c);color:#1c1508}
+.tag{align-self:center;font-weight:800;font-size:14px;padding:6px 14px;border-radius:999px;background:var(--c);color:#1c1508}
+.av{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:var(--k);color:#1c1508;font-size:38px;font-weight:900;
+  box-shadow:0 5px 0 color-mix(in srgb,var(--k) 55%,#000);margin:0 auto}
+.av.s{width:38px;height:38px;font-size:18px;box-shadow:0 2px 0 color-mix(in srgb,var(--k) 55%,#000);margin:0}
 
-/* hold-to-reveal */
-.pad{width:min(80vw,320px);aspect-ratio:1;margin:auto;border-radius:50%;border:1.5px solid var(--line);
-  background:var(--surface);display:grid;place-items:center;padding:34px;text-align:center;touch-action:none;
-  cursor:pointer;transition:border-color .3s var(--ease),box-shadow .3s var(--ease),background .3s}
-.pad>*{grid-area:1/1;transition:opacity .25s,transform .35s var(--ease)}
-.pad .q{font-size:21px;font-weight:600;line-height:1.7;opacity:0;transform:scale(.92)}
-.pad .lock{color:var(--mute);font-weight:600;line-height:1.8}
-.pad.open{border-color:var(--accent);background:#1b1a14;box-shadow:0 0 0 10px rgba(232,184,74,.07)}
-.pad.open .q{opacity:1;transform:none}
-.pad.open .lock{opacity:0;transform:scale(1.08)}
+/* notebook paper + hold cover */
+.paper{background:var(--paper);color:var(--ink);border-radius:6px;position:relative;overflow:hidden;
+  background-image:repeating-linear-gradient(0deg,transparent 0 31px,#3a6ea522 31px 32px);box-shadow:0 16px 30px #0009,0 2px 0 #0005}
+.paper::before{content:"";position:absolute;inset:0 0 auto 0;height:12px;background:var(--c)}
+.paper::after{content:"";position:absolute;top:0;bottom:0;inset-inline-start:34px;width:2px;background:#d6455533}
+.hold{width:min(86vw,340px);height:300px;margin:auto;transform:rotate(-1.2deg);touch-action:none;cursor:pointer}
+.hold .q{position:absolute;inset:12px 0 0;display:grid;place-items:center;padding:0 46px;text-align:center;font-size:23px;font-weight:800;line-height:2}
+.cover{position:absolute;inset:0;display:grid;place-items:center;transition:transform .45s var(--ease);
+  background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--c) 50%,#0b1218) 0 14px,color-mix(in srgb,var(--c) 38%,#0b1218) 14px 28px)}
+.cover span{background:var(--paper);color:var(--ink);font-weight:900;font-size:20px;padding:12px 22px;border-radius:6px;border:3px double var(--ink);transform:rotate(3deg)}
+.hold.open .cover{transform:translateY(-101%)}
+.qcard{padding:22px 46px 18px 18px;font-weight:700;line-height:2}
+.qcard small{display:block;color:#6b5c48;font-weight:800;font-size:13px}
 
-/* timer */
 .clock{position:relative;width:220px;height:220px;margin:0 auto}
 .clock svg{width:100%;height:100%;transform:rotate(-90deg) scaleY(-1)}
-.clock circle{fill:none;stroke-width:6}
-.clock .bg{stroke:var(--line)}
-.clock .fg{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .3s linear}
-.clock span{position:absolute;inset:0;display:grid;place-items:center;font-size:48px;font-weight:800;font-variant-numeric:tabular-nums;direction:ltr}
-.clock.end .fg{stroke:var(--danger)}.clock.end span{color:var(--danger)}
-
-/* vote + result */
+.clock circle{fill:none;stroke-width:12}
+.clock .bg{stroke:var(--bg2)}
+.clock .fg{stroke:var(--c);stroke-linecap:round;transition:stroke-dashoffset .3s linear}
+.clock span{position:absolute;inset:0;display:grid;place-items:center;font-size:50px;font-weight:900;font-variant-numeric:tabular-nums;direction:ltr}
+.clock.end .fg{stroke:#ee5f5f}.clock.end span{color:#ee5f5f}
 #picks{display:grid;gap:10px}
-.pick{font:inherit;font-weight:600;font-size:18px;height:56px;text-align:start;padding:0 18px;border-radius:16px;
-  border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer;
-  transition:border-color .2s,background .25s,transform .15s}
-.pick:active{transform:scale(.98)}
-.pick[aria-pressed=true]{border-color:var(--accent);background:#1b1a14}
-.verdict.win{color:var(--ok)}.verdict.lose{color:var(--danger)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
-.card small{color:var(--mute);font-weight:600}
-.card p{margin-top:6px;font-weight:600;line-height:1.7}
+.pick{font:inherit;font-weight:800;font-size:18px;height:62px;display:flex;align-items:center;gap:14px;padding:0 12px;border-radius:16px;
+  border:2px solid var(--line);background:var(--bg2);color:var(--text);cursor:pointer;box-shadow:0 4px 0 #0c141b;transition:all .15s}
+.pick:active{transform:translateY(3px);box-shadow:none}
+.pick[aria-pressed=true]{border-color:var(--k);background:color-mix(in srgb,var(--k) 20%,var(--bg2))}
+.verdict.win{color:#7bc65a}.verdict.lose{color:#ee6a86}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -100,8 +107,9 @@ label{font-weight:600;color:var(--mute);font-size:14px}
 
 <section class="screen" data-s="home">
   <div class="grow center">
+    <div class="dots" id="dots"></div>
     <h1>مين<br>الجاسوس؟</h1>
-    <p class="muted">واحد فيكم مش عارف السؤال.<br>اسمعوا الإجابات وطلّعوه.</p>
+    <p class="muted">واحد فينا سؤاله غير سؤالكم.<br>اسمعوا الإجابات وطلّعوه.</p>
   </div>
   <button class="btn" data-do="setup">ابدأ لعبة</button>
   <p class="foot" id="count"></p>
@@ -109,41 +117,45 @@ label{font-weight:600;color:var(--mute);font-size:14px}
 
 <section class="screen" hidden data-s="setup">
   <button class="btn ghost sm" data-do="home">رجوع</button>
-  <h2>إعداد اللعبة</h2>
-  <div class="row"><label>عدد اللاعبين</label>
+  <div class="row"><label class="t">عدد اللاعبين</label>
     <div class="stepper"><button id="plus" aria-label="زيادة">+</button><b id="n">4</b><button id="minus" aria-label="نقصان">−</button></div>
   </div>
   <div id="names"></div>
-  <label>مدة النقاش</label>
+  <label class="t">أنواع الأسئلة</label>
+  <div id="chips"></div>
+  <label class="t">مدة النقاش</label>
   <div class="segs" id="segs">
     <button data-m="3">٣ دقايق</button><button data-m="5">٥ دقايق</button><button data-m="8">٨ دقايق</button><button data-m="12">١٢ دقيقة</button>
   </div>
-  <div style="flex:1"></div>
-  <button class="btn" data-do="start">يلا نبدأ</button>
+  <button class="btn" data-do="start" style="margin-top:auto">يلا نبدأ</button>
 </section>
 
 <section class="screen" hidden data-s="pass">
   <div class="grow center">
+    <span class="tag" id="cat"></span>
     <p class="muted">سلّم الموبايل لـ</p>
+    <div class="av" id="avatar"></div>
     <div class="big" id="who"></div>
     <p class="muted">وباقي اللاعبين يبعدوا بعيونهم.</p>
   </div>
+  <button class="btn ghost" id="reroll" data-do="reroll">غيّر السؤال</button>
   <button class="btn" data-do="reveal">أنا جاهز</button>
 </section>
 
 <section class="screen" hidden data-s="reveal">
-  <p class="muted center" style="text-align:center">اضغط واستمر عشان تشوف سؤالك</p>
-  <div class="pad" id="pad" role="button" tabindex="0" aria-label="اضغط مطولاً لإظهار السؤال">
-    <div class="lock">اضغط<br>واستمر</div><div class="q" id="q"></div>
+  <p class="muted" style="text-align:center">اضغط واستمر عشان تشوف سؤالك</p>
+  <div class="paper hold" id="hold" role="button" tabindex="0" aria-label="اضغط مطولاً لإظهار السؤال">
+    <div class="q" id="q"></div><div class="cover"><span>سري</span></div>
   </div>
   <button class="btn" id="next" data-do="next" disabled>خلصت، سلّم الموبايل</button>
 </section>
 
 <section class="screen" hidden data-s="discuss">
   <div class="grow center">
+    <span class="tag" id="cat2"></span>
     <p class="muted">يبدأ بالسؤال</p>
     <div class="big" id="starter"></div>
-    <p class="muted">كل واحد يجاوب بشكل عام من غير ما يفضح سؤاله.</p>
+    <p class="muted">كل واحد يجاوب من غير ما يفضح سؤاله.</p>
     <div class="clock" id="clock">
       <svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="90"/><circle class="fg" id="ring" cx="100" cy="100" r="90"/></svg>
       <span id="time">0:00</span>
@@ -156,19 +168,19 @@ label{font-weight:600;color:var(--mute);font-size:14px}
   <h2>مين الجاسوس في رأيكم؟</h2>
   <p class="muted">اتفقوا على واحد واختاروه.</p>
   <div id="picks"></div>
-  <div style="flex:1"></div>
-  <button class="btn" id="accuse" data-do="result" disabled>اكشف الجاسوس</button>
+  <button class="btn" id="accuse" data-do="result" disabled style="margin-top:auto">اكشف الجاسوس</button>
 </section>
 
 <section class="screen" hidden data-s="result">
-  <div class="grow center">
-    <h1 class="verdict" id="verdict"></h1>
+  <div class="center" style="display:flex;flex-direction:column;gap:8px;align-items:center;padding-top:8px">
+    <h1 class="verdict" id="verdict" style="font-size:clamp(38px,12vw,54px)"></h1>
     <p class="muted">الجاسوس كان</p>
-    <div class="big" id="spy"></div>
+    <div class="av" id="spyav"></div><div class="big" id="spy"></div>
   </div>
-  <div class="card"><small>سؤال المجموعة</small><p id="qg"></p></div>
-  <div class="card"><small>سؤال الجاسوس</small><p id="qi"></p></div>
+  <div class="paper qcard"><small>سؤال المجموعة</small><p id="qg"></p></div>
+  <div class="paper qcard"><small>سؤال الجاسوس</small><p id="qi"></p></div>
   <button class="btn" data-do="start">جولة جديدة</button>
+  <button class="btn ghost" id="ban" data-do="ban">السؤال ده وحش، متجيبوش تاني</button>
   <button class="btn ghost" data-do="home">القائمة الرئيسية</button>
 </section>
 
@@ -186,80 +198,122 @@ const Store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem('gsp:' + k)) ?? d; } catch { return d; } },
   set(k, v) { try { localStorage.setItem('gsp:' + k, JSON.stringify(v)); } catch {} }
 };
+const PLAYER_COLORS = ['#ee8a4f', '#7bc65a', '#ee6a86', '#5b8def', '#2fc4ae', '#eab949', '#a07be8', '#4cc0ee', '#c3d24a', '#f08fc0', '#f2a65a', '#8fd3b6'];
 
 /* ============ Content engine ============
-   pair index = seed × modifier. Add seeds with Content.add([...]) — every new
-   seed instantly multiplies across all modifiers.
-   Seed format: "group phrase|imposter phrase"  (rendered as: إيه <phrase> <modifier>؟) */
+   Each category has its own seeds AND its own modifiers, so combinations stay natural.
+   pairs in a category = seeds × modifiers.   Seed: "group phrase|imposter phrase"
+   Rendered as:  إيه <phrase> <modifier>؟
+   Add more anytime:  Content.add('key','الاسم','#color',[mods],[seeds]) — or push into an existing one. */
 const Content = {
-  seeds: [],
-  mods: ['', 'في رمضان', 'في الصيف', 'في الشتا', 'لما تبقى مفلس', 'لما تكون مع صحابك', 'يوم الجمعة',
-    'في الأجازة', 'وانت مسافر', 'لما تكون مضايق', 'في العيد', 'أيام الامتحانات', 'بعد نص الليل',
-    'وانت في الشغل', 'أيام الجامعة'],
-  add(list) { list.forEach(s => this.seeds.push(s.split('|'))); },
-  get size() { return this.seeds.length * this.mods.length; },
-  pair(i) {
-    const m = this.mods.length, [a, b] = this.seeds[Math.floor(i / m)], mod = this.mods[i % m];
-    const f = t => `إيه ${t}${mod ? ' ' + mod : ''}؟`;
-    return Math.random() < .5 ? { group: f(a), imposter: f(b) } : { group: f(b), imposter: f(a) };
+  cats: {}, order: [],
+  add(key, name, color, mods, seeds) { this.order.push(key); this.cats[key] = { name, color, mods, seeds: seeds.map(s => s.split('|')) }; },
+  size(keys = this.order) { return keys.reduce((n, k) => n + this.cats[k].seeds.length * this.cats[k].mods.length, 0); },
+  build(k, i) {
+    const c = this.cats[k], m = c.mods.length, [a, b] = c.seeds[Math.floor(i / m)], mod = c.mods[i % m];
+    const f = t => `إيه ${t}${mod ? ' ' + mod : ''}؟`, flip = Math.random() < .5;
+    return { id: `${k}:${i}`, cat: k, group: f(flip ? b : a), imposter: f(flip ? a : b) };
   },
-  next() { // shuffled deck persisted across sessions → no repeats until exhausted
-    let d = Store.get('deck', null);
-    if (!d || d.sig !== this.size || !d.q.length) d = { sig: this.size, q: shuffle([...Array(this.size).keys()]) };
-    const i = d.q.pop(); Store.set('deck', d);
-    return this.pair(i);
+  next(keys) { // per-category shuffled decks saved on device: no repeats until a deck is used up; banned pairs never return
+    const d = Store.get('decks', {}), ban = new Set(Store.get('ban', []));
+    let out;
+    for (let t = 0; t < 60; t++) {
+      const k = keys[rnd(keys.length)], c = this.cats[k], n = c.seeds.length * c.mods.length;
+      if (!d[k] || d[k].n !== n || !d[k].q.length) d[k] = { n, q: shuffle([...Array(n).keys()]) };
+      out = this.build(k, d[k].q.pop());
+      if (!ban.has(out.id)) break;
+    }
+    Store.set('decks', d);
+    return out;
   }
 };
 
-Content.add([
-  // أكل
-  'أكلة بتاكلها في الفطار|أكلة بتاكلها في العشا', 'سندوتش بتشتريه من الشارع|سندوتش بتعمله في البيت',
-  'أكلة أمك بتعملها أحسن من أي مطعم|أكلة ستك بتعملها أحسن من أي مطعم', 'مشروب بتطلبه على القهوة|مشروب بتشربه أول ما تصحى',
-  'حلو بتاخده وانت رايح عزومة|حلو بتشتريه لنفسك', 'أكلة بتطلبها ديليفري|أكلة بتاكلها من المطعم',
-  'أكلة مبتزهقش منها|أكلة زهقت منها', 'حاجة بتاكلها مع الفول|حاجة بتاكلها مع الكشري',
-  'أكلة بتفكرك بالغدا يوم الجمعة|أكلة بتفكرك بالغدا عند تيتة', 'نكهة شيبسي بتختارها|نكهة عصير بتختارها',
-  'حاجة بتحطها في السندوتش|حاجة بتحطها على الكشري', 'أكلة بتتخانق عليها مع اخواتك|أكلة بتخبيها من اخواتك',
-  // شوارع ومواصلات
-  'مكان بتستنى فيه الميكروباص|مكان بتستنى فيه المترو', 'شارع بتتعصب فيه من الزحمة|شارع بتحب تتمشى فيه',
-  'حاجة بتضايقك في المترو|حاجة بتضايقك في الميكروباص', 'حاجة بتسمعها من سواق الميكروباص|حاجة بتسمعها من سواق التاكسي',
-  'موقف بتتحرج منه في المواصلات|موقف بتضحك عليه في المواصلات', 'مكان بتروحه بالليل لما تفضى|مكان بتروحه بالنهار لما تفضى',
-  'كوبري بتحب تعدي عليه|كوبري بتكره تعدي عليه', 'حاجة بتعملها وانت في الزحمة|حاجة بتعملها وانت مستني حد',
-  'مكان بيتأخر فيه صحابك|مكان بتتأخر فيه انت', 'حاجة بتشوفها في الطريق كل يوم|حاجة بتشوفها في الطريق مرة في السنة',
-  // نوستالجيا
-  'لعبة كنت بتلعبها في الشارع|لعبة كنت بتلعبها في المدرسة', 'كارتون كنت مستنيه بعد المدرسة|كارتون كنت بتشوفه في الأجازة',
-  'حاجة كنت بتشتريها من كشك المدرسة|حاجة كنت بتشتريها من بقال الحتة', 'أغنية بتفكرك بأيام زمان|أغنية بتفكرك بأول حب',
-  'حاجة كنت بتخاف منها وانت صغير|حاجة كنت بتحبها وانت صغير', 'مدرس فاكره لحد دلوقتي|زميل فاكره لحد دلوقتي',
-  'حاجة كانت غالية وبقت رخيصة|حاجة كانت رخيصة وبقت غالية', 'لعبة بلايستيشن كنت بتلعبها|لعبة موبايل بتلعبها دلوقتي',
-  'حاجة كانت بتحصل في الأعياد زمان|حاجة كانت بتحصل في رمضان زمان', 'هدية كنت بتحلم بيها|هدية أخدتها وفرحت بيها',
-  'شريط كاسيت كنت بتسمعه|أغنية كنت بتسمعها على الراديو', 'حاجة كنت بتعملها عشان تهرب من المذاكرة|حاجة كنت بتعملها عشان تهرب من الحصة',
-  // سينما ومسلسلات
-  'فيلم مصري بتشوفه كل ما يتعرض|مسلسل مصري بتشوفه كل ما يتعرض', 'ممثل بتحب أفلامه|ممثل بتحب قفشاته',
-  'إفيه بتقوله كتير|إفيه بتسمعه كتير', 'فيلم كوميدي مبتزهقش منه|فيلم أكشن بتحبه',
-  'مسلسل رمضاني فاكره لحد دلوقتي|إعلان رمضاني فاكره لحد دلوقتي', 'مشهد بيضحكك لحد دلوقتي|مشهد بيعيطك لحد دلوقتي',
-  'فيلم بتتفرج عليه مع العيلة|فيلم بتتفرج عليه مع صحابك', 'أغنية شعبية بترقص عليها|أغنية رومانسية بتسمعها',
-  'شخصية في فيلم بتشبهك|شخصية في مسلسل بتشبه حد تعرفه', 'فيلم قديم بتحبه|فيلم أبيض وأسود بتحبه',
-  // حياة يومية وفلوس
-  'حاجة بتصرف عليها فلوس كتير|حاجة بتصرف عليها ومش بتندم', 'حاجة بتتحاسب عليها بالعافية|حاجة بتشتريها بالقسط',
-  'حاجة بتعملها أول ما توصل البيت|حاجة بتعملها قبل ما تنام', 'حاجة بتضايقك في النت|حاجة بتضايقك في الكهربا',
-  'مكان بتشتري منه هدومك|مكان بتشتري منه موبايلك', 'حاجة بتنساها دايماً|حاجة بتفتكرها في آخر لحظة',
-  'عادة عندك بتضايق اللي حواليك|عادة عند حد قريب منك بتضايقك', 'حاجة بتعملها لما تبقى زهقان|حاجة بتعملها لما تبقى متوتر',
-  'حاجة بتشتريها من المول|حاجة بتشتريها من السوق', 'تطبيق بتفتحه أكتر حاجة|تطبيق بتمسحه كل شوية',
-  // ناس وعلاقات
-  'حاجة أمك بتقولها كل يوم|حاجة أبوك بيقولها كل يوم', 'جملة بتقولها لما تتأخر|جملة بتقولها لما تعتذر',
-  'نصيحة بتسمعها من أهلك|نصيحة بتسمعها من صحابك', 'صفة بتحبها في الجيران|صفة بتضايقك في الجيران',
-  'حاجة بتعملها عشان تصالح حد زعلان|حاجة بتعملها عشان تعتذر لحد', 'لقب بتنادي بيه صاحبك|لقب بينادوك بيه صحابك',
-  'حاجة بتعمل بيها مقلب في صاحبك|حاجة بتعمل بيها مقلب في اخوك', 'حاجة بتتخانق عليها في البيت|حاجة بتتخانق عليها في الشغل',
-  'حاجة بتقدمها للضيوف|حاجة بتقدمها للضيوف قبل الأكل',
-  // مصايف وخروجات
-  'مكان بتروحه المصيف|مكان بتروحه الساحل', 'حاجة لازم تاخدها في الرحلة|حاجة بتنساها في البيت',
-  'مكان بتخرج فيه مع صحابك|مكان بتخرج فيه مع العيلة', 'حاجة بتشتريها من الكورنيش|حاجة بتشتريها من الملاهي',
-  'أغنية بتشغلها في العربية|أغنية بتشغلها في الرحلة', 'حاجة بتعملها على البحر|حاجة بتعملها على النيل',
-  'كافيه بتحب تقعد فيه|كافيه بتكره تقعد فيه', 'حاجة بتاكلها في السينما|حاجة بتشربها في السينما',
-  'مكان بتسافر له بالقطر|مكان بتسافر له بالأتوبيس'
-]);
+Content.add('food', 'أكل البيت', '#ee8a4f',
+  ['', 'في رمضان', 'في الشتا', 'في العيد', 'يوم الجمعة', 'وانت راجع من الجامعة', 'أيام الامتحانات', 'وانت تعبان', 'لما الضيوف يجوا', 'بعد الفجر'], [
+  'أكلة أمك بتعملها أحسن من أي مطعم|أكلة ستك بتعملها أحسن من أي مطعم', 'حاجة بتتحط على الطبلية|حاجة بتتحط على السفرة',
+  'أكلة بتحب تاكلها بالإيد|أكلة بتاكلها بالمعلقة', 'حاجة بتغمس فيها العيش البلدي|حاجة بتحشيها في العيش البلدي',
+  'مشروب بتشربه لما تصحى|مشروب بتشربه بعد الغدا', 'حلو بيتعمل في البيت|حلو بتشتريه من المحل',
+  'أكلة بتتعمل في الفرن البلدي|أكلة بتتعمل على البوتجاز', 'أكلة بتتعمل من اللبن|أكلة بتتعمل من البيض',
+  'أكلة بتوحشك وانت بعيد عن البيت|أكلة بتاكلها في المدينة الجامعية', 'أكلة كل الأسرة بتتلم عليها|أكلة كل واحد بياكلها لوحده',
+  'أكلة بتتخانق عليها مع اخواتك|أكلة بتخبيها من اخواتك', 'طعم بتحبه في الشاي|طعم بتحبه في القهوة']);
+
+Content.add('farm', 'الغيط والفلاحة', '#7bc65a',
+  ['', 'في الصيف', 'في الشتا', 'وقت الحصاد', 'الصبح بدري', 'لما الميه تقطع', 'وانت راجع من الجامعة', 'وانت مع أبوك', 'في الحر', 'يوم الجمعة'], [
+  'محصول بتحب تزرعه|محصول بتحب تاكله', 'شغلة في الغيط بتتعب فيها|شغلة في الغيط بتحب تعملها',
+  'حيوان في البيت بتحبه|حيوان في البيت بتخاف منه', 'حاجة بتسمعها من الفلاحين في الغيط|حاجة بتسمعها من التجار في السوق',
+  'أداة بتستخدمها في الغيط|أداة بتستخدمها في البيت', 'وقت بتروح فيه الغيط|وقت بتروح فيه السوق',
+  'مشكلة بتضايق الفلاح|مشكلة بتضايق التاجر', 'حاجة بتشتريها من الجمعية الزراعية|حاجة بتشتريها من السوق',
+  'حاجة بتخليك تسهر في الغيط|حاجة بتخليك تصحى بدري', 'ريحة بتحبها في الغيط|صوت بتحبه في الغيط',
+  'طريقة بتسقي بيها الأرض|طريقة بتحصد بيها المحصول', 'حاجة بتعلمك إياها الفلاحة|حاجة بتعلمك إياها الجامعة']);
+
+Content.add('social', 'الحتة والناس', '#ee6a86',
+  ['', 'في الفرح', 'في رمضان', 'يوم الجمعة', 'على القهوة', 'بعد العشا', 'في العيد', 'في المولد', 'قدام الجيران', 'وانت راجع من الجامعة'], [
+  'حاجة بتسمعها من الجيران|حاجة بتسمعها من قرايبك', 'سؤال بيسألوهولك الناس كل ما تشوفهم|سؤال بيسألوهولك أهلك كل ما تشوفهم',
+  'لقب بيندهوك بيه في الحتة|لقب بتندهه لصاحبك', 'حاجة بتتقال في الأفراح عندنا|حاجة بتتقال في المواسم عندنا',
+  'أغنية بتتشغل في الفرح|أغنية بتتشغل في الميكروباص', 'حاجة بتعملها عشان تتجنب حد|حاجة بتعملها عشان تجامل حد',
+  'موضوع بيتكلم فيه الرجالة على القهوة|موضوع بتتكلم فيه الستات', 'صفة بتحبها في جارك|صفة بتضايقك في جارك',
+  'حاجة بتعملها لما حد يعزمك|حاجة بتعملها لما حد يزورك', 'موقف محرج حصلك قدام الناس|موقف مضحك حصلك قدام الناس',
+  'حاجة بتحصل كل يوم في شارعكم|حاجة بتحصل مرة في السنة في شارعكم', 'خبر بينتشر بسرعة في القرية|خبر بتخبيه عن القرية']);
+
+Content.add('college', 'الجامعة', '#5b8def',
+  ['', 'في الامتحانات', 'في أول يوم', 'قبل ما الدكتور يدخل', 'في المحاضرة', 'في السكشن', 'قبل التسليم بيوم', 'في المدينة الجامعية', 'في الكافيتريا', 'بعد النتيجة'], [
+  'حاجة بتعملها في المحاضرة|حاجة بتعملها في السكشن', 'دكتور بتحب طريقته|دكتور بتخاف منه',
+  'حاجة بتذاكر بيها|حاجة بتسمعها وانت بتذاكر', 'حاجة بتنساها وانت رايح الكلية|حاجة بتفتكرها وانت في المحاضرة',
+  'أكلة بتاكلها في كافيتريا الكلية|مشروب بتشربه في الكافيتريا', 'حاجة بتضايقك من زمايلك|حاجة بتعجبك في زمايلك',
+  'عذر بتقوله للدكتور|عذر بتقوله لأهلك', 'حاجة بتخليك تسهر|حاجة بتخليك تصحى بدري',
+  'طريقة بتحفظ بيها|طريقة بتفهم بيها', 'حاجة بتعملها لما تعرف نتيجتك|حاجة بتعملها لما تسمع خبر وحش',
+  'مكان بتذاكر فيه|مكان بتهرب فيه من المذاكرة', 'حاجة بتحلم بيها بعد التخرج|حاجة بتخاف منها بعد التخرج']);
+
+Content.add('majors', 'كلياتنا', '#2fc4ae',
+  ['', 'في الامتحانات', 'في التدريب', 'قدام أهل البلد', 'لما حد يسألك', 'الساعة ٣ الفجر', 'في أول سنة', 'في آخر سنة', 'في الإجازة', 'مع صحابك'], [
+  'حاجة أهل البلد بيطلبوها من طالب الطب|حاجة أهل البلد بيطلبوها من طالب الكمبيوتر',
+  'حاجة أهل البلد بيطلبوها من طالب التمريض|حاجة أهل البلد بيطلبوها من طالب الزراعة',
+  'سؤال بيسألوه لطالب الطب|سؤال بيسألوه لطالب الكمبيوتر', 'مصطلح بيتقال في كليتك|مصطلح بيتقال في كلية صاحبك',
+  'حاجة بتخاف منها في كليتك|حاجة بتحبها في كليتك', 'حاجة بتشيلها في شنطتك|حاجة بتشيلها في جيبك',
+  'حاجة بتعملها في التدريب|حاجة بتعملها في المعمل', 'صعوبة بتقابلها في المذاكرة|صعوبة بتقابلها في العملي',
+  'حاجة أهل البلد فاكرينها عن كليتك|حاجة أهل البلد فاكرينها عن كلية صاحبك', 'نصيحة بتديها للي جاي كليتك|نصيحة بتديها للي خرج من كليتك',
+  'مادة بتتعبك|مادة بتحبها', 'حاجة بتتقال عن كليتك وهي غلط|حاجة بتتقال عن كليتك وهي صح']);
+
+Content.add('past', 'أيام زمان', '#eab949',
+  ['', 'في الصيف', 'في رمضان', 'في الشتا', 'في العيد', 'يوم الجمعة', 'قبل المدرسة', 'بعد المدرسة', 'في الإجازة', 'بالليل'], [
+  'لعبة كنت بتلعبها في الشارع|لعبة كنت بتلعبها في المدرسة', 'حاجة كنت بتشتريها من الكشك|حاجة كنت بتشتريها من البقال',
+  'كارتون كنت مستنيه|فيلم كنت مستنيه', 'حاجة كنت بتخاف منها|حاجة كنت بتحبها',
+  'مكان كنت بتلعب فيه|مكان كنت بتستخبى فيه', 'حاجة كنت بتعملها في الترعة|حاجة كنت بتعملها في الغيط',
+  'مدرس فاكره من المدرسة|زميل فاكره من المدرسة', 'حاجة كنت بتصرف عليها العيدية|حاجة كنت بتحلم تشتريها بالعيدية',
+  'حاجة كانت بتحصل في رمضان زمان|حاجة كانت بتحصل في العيد زمان', 'عقاب كنت بتاخده من أهلك|عقاب كنت بتاخده من المدرسة',
+  'حاجة كنت بتعملها عشان تهرب من المذاكرة|حاجة كنت بتعملها عشان تهرب من الغيط', 'أغنية كنت بتسمعها من كاسيت الجيران|أغنية كنت بتسمعها من الراديو']);
+
+Content.add('tech', 'موبايل وتسلية', '#a07be8',
+  ['', 'بعد نص الليل', 'وانت مضايق', 'في رمضان', 'مع صحابك', 'وانت مسافر', 'وانت في السرير', 'لما الشحن يخلص', 'في الامتحانات', 'وانت زهقان'], [
+  'تطبيق بتفتحه أكتر حاجة|تطبيق بتمسحه كل شوية', 'مسلسل بتتفرج عليه|فيلم بتتفرج عليه',
+  'لعبة موبايل بتلعبها|لعبة كمبيوتر بتلعبها', 'أغنية بتسمعها كتير|مطرب بتسمعه كتير',
+  'حاجة بتضايقك في النت|حاجة بتضايقك في الشبكة', 'ممثل مصري بتحبه|مطرب مصري بتحبه',
+  'قناة يوتيوب بتتابعها|بودكاست أو صفحة بتتابعها', 'إفيه بتقوله كتير|إفيه بتسمعه كتير',
+  'حاجة بتعملها على الموبايل وانت زهقان|حاجة بتعملها على الموبايل وانت مستني حد', 'مشهد كوميدي بيضحكك|مشهد حزين بيأثر فيك',
+  'رسالة بتبعتها على الواتس|رسالة بتتجاهلها على الواتس', 'حاجة بتشتريها أونلاين|حاجة بتشتريها من السوق']);
+
+Content.add('travel', 'الطريق وبني سويف', '#4cc0ee',
+  ['', 'في الصيف', 'في الشتا', 'وانت مستعجل', 'الصبح بدري', 'بالليل', 'وانت مسافر القاهرة', 'وانت راجع البلد', 'مع صحابك', 'في الزحمة'], [
+  'مكان بتستنى فيه الميكروباص|مكان بتستنى فيه التوك توك', 'حاجة بتسمعها من سواق الميكروباص|حاجة بتسمعها من سواق التوك توك',
+  'حاجة بتضايقك في الميكروباص|حاجة بتضايقك في القطر', 'حاجة بتاكلها وانت مسافر|حاجة بتشربها وانت مسافر',
+  'حاجة بتجيبها معاك من بني سويف|حاجة بتجيبها معاك من القاهرة', 'مكان في بني سويف بتحب تروحه|مكان في القاهرة بتحب تروحه',
+  'موقف حصلك في الطريق|موقف حصلك في المحطة', 'أغنية بتسمعها في الطريق|كلام بتفكر فيه في الطريق',
+  'حاجة بتعملها وانت مستني المواصلة|حاجة بتعملها وانت راكب', 'طريق بتحب تمشي فيه|طريق بتكره تمشي فيه',
+  'حاجة بتشوفها من شباك القطر|حاجة بتشوفها من شباك الميكروباص', 'حاجة بتشيلها في شنطة السفر|حاجة بتشيلها في شنطة الجامعة']);
+
+Content.add('future', 'فلوس ومستقبل', '#c3d24a',
+  ['', 'بعد التخرج', 'في أول شغل', 'وانت مفلس', 'لما تقبض', 'قدام أهلك', 'في آخر الشهر', 'مع صحابك', 'في السنة الجاية', 'من غير ما تستلف'], [
+  'حاجة هتشتريها أول ما تشتغل|حاجة هتسددها أول ما تشتغل', 'حاجة بتصرف عليها فلوس كتير|حاجة بتصرف عليها ومش بتندم',
+  'حاجة بتحلم بيها في المستقبل|حاجة بتخاف منها في المستقبل', 'حاجة أهلك مستنيينها منك|حاجة انت مستنيها من نفسك',
+  'مكان نفسك تشتغل فيه|بلد نفسك تسافر لها', 'حاجة بتوفر فيها|حاجة بتصرف فيها من غير حساب',
+  'نصيحة سمعتها عن الشغل|نصيحة سمعتها عن الجواز', 'حاجة بتخليك تقلق من التخرج|حاجة بتخليك تفرح بالتخرج',
+  'مهنة كنت عايزها وانت صغير|مهنة أهلك عايزينك تشتغلها', 'حاجة بتقدر تشتريها بمية جنيه|حاجة بتقدر تشتريها بألف جنيه',
+  'حاجة بتعملها عشان تكسب فلوس زيادة|حاجة بتعملها عشان توفر فلوس', 'أول حاجة هتعملها بعد التخرج|أول حاجة هتعملها بعد أول مرتب']);
 
 /* ============ State ============ */
-const G = { n: 4, minutes: 5, names: [], players: [], imposter: 0, starter: 0, turn: 0, pair: null, suspect: null, tick: 0, wake: null };
+const G = { n: 4, minutes: 5, names: [], cats: [], players: [], imposter: 0, last: -1, starter: 0, turn: 0, pair: null, suspect: null, tick: 0, wake: null };
+const av = (i, cls = '') => `<span class="av ${cls}" style="--k:${PLAYER_COLORS[i % 12]}">${esc([...G.players[i]][0] || '?')}</span>`;
+const theme = k => document.documentElement.style.setProperty('--c', k ? Content.cats[k].color : '#eab949');
 
 /* ============ Screens ============ */
 const UI = {
@@ -274,9 +328,19 @@ const UI = {
 const Setup = {
   init() {
     G.n = Store.get('n', 4); G.minutes = Store.get('min', 5); G.names = Store.get('names', []);
+    G.cats = Store.get('cats', Content.order).filter(k => Content.cats[k]);
+    if (!G.cats.length) G.cats = [...Content.order];
     $('#minus').onclick = () => this.set(G.n - 1);
     $('#plus').onclick = () => this.set(G.n + 1);
     $('#segs').onclick = e => { const b = e.target.closest('button'); if (b) { G.minutes = +b.dataset.m; this.draw(); } };
+    $('#chips').onclick = e => {
+      const b = e.target.closest('.chip'); if (!b) return;
+      const k = b.dataset.k, on = G.cats.includes(k);
+      if (on && G.cats.length === 1) return;             // always keep at least one category
+      G.cats = on ? G.cats.filter(x => x !== k) : [...G.cats, k];
+      this.draw();
+    };
+    $('#dots').innerHTML = Content.order.map(k => `<i style="--k:${Content.cats[k].color}"></i>`).join('');
     this.draw();
   },
   set(n) { this.keep(); G.n = Math.min(12, Math.max(3, n)); this.draw(); },
@@ -284,8 +348,11 @@ const Setup = {
   draw() {
     txt('n', G.n);
     $('#names').innerHTML = Array.from({ length: G.n }, (_, i) =>
-      `<input maxlength="14" placeholder="لاعب ${i + 1}" value="${esc(G.names[i] || '')}" aria-label="اسم اللاعب ${i + 1}">`).join('');
+      `<input style="--k:${PLAYER_COLORS[i % 12]}" maxlength="14" placeholder="لاعب ${i + 1}" value="${esc(G.names[i] || '')}" aria-label="اسم اللاعب ${i + 1}">`).join('');
+    $('#chips').innerHTML = Content.order.map(k =>
+      `<button class="chip" data-k="${k}" style="--k:${Content.cats[k].color}" aria-pressed="${G.cats.includes(k)}">${Content.cats[k].name}</button>`).join('');
     $$('#segs button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.m === G.minutes));
+    txt('count', `${Content.size().toLocaleString('ar-EG')} سؤال جاهز`);
   },
   players() { this.keep(); return Array.from({ length: G.n }, (_, i) => G.names[i] || `لاعب ${i + 1}`); }
 };
@@ -293,16 +360,16 @@ const Setup = {
 /* ============ Hold-to-reveal ============ */
 const Reveal = {
   init() {
-    const pad = $('#pad');
-    const on = e => { e.preventDefault(); if (pad.classList.contains('open')) return;
+    const box = $('#hold');
+    const on = e => { e.preventDefault(); if (box.classList.contains('open')) return;
       txt('q', G.turn === G.imposter ? G.pair.imposter : G.pair.group);
-      pad.classList.add('open'); $('#next').disabled = false; };
-    const off = () => { pad.classList.remove('open'); setTimeout(() => { if (!pad.classList.contains('open')) txt('q', ''); }, 260); };
-    pad.addEventListener('pointerdown', on);
-    ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => pad.addEventListener(t, off));
-    pad.addEventListener('contextmenu', e => e.preventDefault());
-    pad.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') on(e); });
-    pad.addEventListener('keyup', off);
+      box.classList.add('open'); $('#next').disabled = false; };
+    const off = () => { box.classList.remove('open'); setTimeout(() => { if (!box.classList.contains('open')) txt('q', ''); }, 480); };
+    box.addEventListener('pointerdown', on);
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => box.addEventListener(t, off));
+    box.addEventListener('contextmenu', e => e.preventDefault());
+    box.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') on(e); });
+    box.addEventListener('keyup', off);
     document.addEventListener('visibilitychange', off);
   }
 };
@@ -311,12 +378,20 @@ const Reveal = {
 const Game = {
   start() {
     G.players = Setup.players();
-    Store.set('n', G.n); Store.set('min', G.minutes); Store.set('names', G.names);
-    G.imposter = rnd(G.players.length); G.starter = rnd(G.players.length);
-    G.pair = Content.next(); G.turn = 0; G.suspect = null;
+    Store.set('n', G.n); Store.set('min', G.minutes); Store.set('names', G.names); Store.set('cats', G.cats);
+    let i; do { i = rnd(G.players.length); } while (i === G.last && G.players.length > 1); // never the same spy twice in a row
+    G.imposter = G.last = i; G.starter = rnd(G.players.length);
+    G.pair = Content.next(G.cats); G.turn = 0; G.suspect = null;
     this.pass();
   },
-  pass() { txt('who', G.players[G.turn]); UI.show('pass'); },
+  reroll() { G.pair = Content.next(G.cats); this.pass(); },   // safe: nobody has seen the question yet
+  pass() {
+    theme(G.pair.cat);
+    txt('cat', Content.cats[G.pair.cat].name);
+    $('#avatar').outerHTML = av(G.turn).replace('class="av ', 'id="avatar" class="av ');
+    txt('who', G.players[G.turn]); $('#reroll').hidden = G.turn !== 0;
+    UI.show('pass');
+  },
   reveal() {
     $('#next').disabled = true; txt('q', '');
     txt('next', G.turn === G.players.length - 1 ? 'ابدأوا النقاش' : 'خلصت، سلّم الموبايل');
@@ -326,7 +401,7 @@ const Game = {
   async discuss() {
     const total = G.minutes * 60000, end = Date.now() + total, C = 2 * Math.PI * 90, ring = $('#ring');
     ring.style.strokeDasharray = C; $('#clock').classList.remove('end');
-    txt('starter', G.players[G.starter]); UI.show('discuss');
+    txt('cat2', Content.cats[G.pair.cat].name); txt('starter', G.players[G.starter]); UI.show('discuss');
     clearInterval(G.tick);
     const step = () => {
       const left = Math.max(0, end - Date.now()), s = Math.ceil(left / 1000);
@@ -340,23 +415,32 @@ const Game = {
   vote() {
     clearInterval(G.tick); G.wake?.release?.().catch(() => {}); G.suspect = null;
     $('#accuse').disabled = true;
-    $('#picks').innerHTML = G.players.map((p, i) => `<button class="pick" data-i="${i}" aria-pressed="false">${esc(p)}</button>`).join('');
+    $('#picks').innerHTML = G.players.map((p, i) =>
+      `<button class="pick" data-i="${i}" style="--k:${PLAYER_COLORS[i % 12]}" aria-pressed="false">${av(i, 's')}${esc(p)}</button>`).join('');
     UI.show('vote');
   },
   result() {
     const caught = G.suspect === G.imposter, v = $('#verdict');
     v.textContent = caught ? 'كشفتوه!' : 'الجاسوس نجا';
     v.className = 'verdict ' + (caught ? 'win' : 'lose');
+    $('#spyav').outerHTML = av(G.imposter).replace('class="av ', 'id="spyav" class="av ');
     txt('spy', G.players[G.imposter]); txt('qg', G.pair.group); txt('qi', G.pair.imposter);
+    const banned = Store.get('ban', []).includes(G.pair.id);
+    txt('ban', banned ? 'اتشال. اضغط للتراجع' : 'السؤال ده وحش، متجيبوش تاني');
     UI.show('result');
+  },
+  ban() {
+    const list = Store.get('ban', []), i = list.indexOf(G.pair.id);
+    i < 0 ? list.push(G.pair.id) : list.splice(i, 1);
+    Store.set('ban', list); txt('ban', i < 0 ? 'اتشال. اضغط للتراجع' : 'السؤال ده وحش، متجيبوش تاني');
   }
 };
 
 /* ============ Wiring ============ */
 const actions = {
-  home: () => UI.show('home'), setup: () => UI.show('setup'),
-  start: () => Game.start(), reveal: () => Game.reveal(), next: () => Game.next(),
-  vote: () => Game.vote(), result: () => Game.result()
+  home: () => { theme(); UI.show('home'); }, setup: () => { Setup.draw(); UI.show('setup'); },
+  start: () => Game.start(), reroll: () => Game.reroll(), reveal: () => Game.reveal(), next: () => Game.next(),
+  vote: () => Game.vote(), result: () => Game.result(), ban: () => Game.ban()
 };
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-do]'); if (b) return actions[b.dataset.do]?.();
@@ -367,7 +451,6 @@ document.addEventListener('click', e => {
 });
 
 Setup.init(); Reveal.init();
-txt('count', `${Content.size.toLocaleString('ar-EG')} سؤال جاهز`);
 
 /* ============ Offline ============ */
 if ('serviceWorker' in navigator) {
